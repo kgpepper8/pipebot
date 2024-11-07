@@ -1,7 +1,10 @@
 //tests.c
 
-//including main provides access to all the source files
-#include "../main.c"
+//includes everything so it can be tested
+#include "../src/startup.h"
+#include "../src/tasks.h"
+#include "../src/checks.h"
+#include "../src/logger.h"
 
 void testGetUserDistance();		//1
 void testInitializeSensors();	//2

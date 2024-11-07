@@ -1,19 +1,19 @@
 //logger.c
-#include "libFile/PC_FileIO.c"
+#include "fileLib/PC_FileIO.c"
 
 //holds the desired name of the logfile
 const string LOGNAME = "log.txt";
 
-/*
-Author: Samuel Mailhot
-No parameters.
-Creates or opens, then returns, a logfile with the proper name.
-*/
-TFileHandle prepLog();
+/* function implementations below this line ----------------------------------- */
 
-/*
-Author: Kiran Ghanekar
-Parameters: int time (the log's timestamp), string msg (the message to be written)
-No returns. Writes a log message to the file returned by prepLog().
-*/
-void sendLog(int time, string msg);
+void sendLog(int time, string msg){
+	char message[100] = "";
+
+
+	strcat(message, time);
+	strcat(message, "\t");
+	strcat(message, msg);
+
+	writeTextPC(prepLog(), message);
+	writeEndlPC();
+}

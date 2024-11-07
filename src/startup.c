@@ -1,4 +1,4 @@
-//checks.c
+//startup.c
 
 /* function implementations below this line ----------------------------------- */
 
