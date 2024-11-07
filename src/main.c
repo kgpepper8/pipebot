@@ -1,6 +1,6 @@
 //main.c
-#include "startup.h"
-#include "tasks.h"
+#include "startup.c"
+#include "tasks.c"
 
 //holds the distance, in cm, driven between health checks
 const float DRIVEDIST = 5;
