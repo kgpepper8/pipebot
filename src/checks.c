@@ -1,12 +1,14 @@
 //checks.c
 
 /*
+Author: Emily D'Silva
 No parameters.
 Returns 1 if all sensors are working, otherwise returns 0.
 */
 bool checkSensors();
 
 /*
+Author: Kiran Ghanekar
 Parameters: float &currentdist (reference to a variable holding the distance moved by the robot since power-on)
 			float endpoint (the user-input endpoint)
 			float acceldist (the most recent distance reported by the drive function, from the accelerometer)
@@ -17,4 +19,4 @@ Returns: 0 if everything passes
 		 5 if the robot should start cleaning operations
 		 10 if the robot should tension the wheels more
 */
-int healthCheck(&currentdist, endpoint, acceldist, drivedist, time);
+int healthCheck(float &currentdist, float endpoint, float acceldist, float drivedist, int time);

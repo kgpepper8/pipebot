@@ -4,9 +4,9 @@
 
 //holds the conversion factor for motor encoder count to distance
 const float CONV = PI*2.75/180;
-const int LSCOUNT; //to be set
 
 /*
+Author: Kiran Ghanekar
 Parameters: float endpoint (the user-defined distance that the robot should advance)
 			float drivedist (the distance to drive before each health check)
 No returns - coordinates the nominal operation of the robot, as described by the flowchart.
@@ -14,6 +14,7 @@ No returns - coordinates the nominal operation of the robot, as described by the
 void mainLoop(float endpoint, float drivedist);
 
 /*
+Author: Emily D'Silva
 Parameters: float dist (the distance to drive)
 			bool direction (1 for forward, 0 for backward)
 			bool stop (1 to stop at the end, 0 to keep moving)
@@ -24,24 +25,29 @@ Returns the distance the accelerometer reports after driving 'dist' in 'directio
 float drive(float dist, bool direction, bool stop, float &currentdist, int time);
 
 /*
-No parameters.
-No returns - rotates the lead screw by LSCOUNT to tension the wheels further.
+Author: Samuel Mailhot
+Parameters: int &pastRotations (reference to a variable holding the number of times the lead screw has already turned)
+			bool spinDown (if true, spin the leadscrew all the way back to 0 rotations)
+No returns - rotates the lead screw a certain amount based on pastRotations to tension the wheels further.
 */
-void tensionWheels();
+void tensionWheels(int &pastRotations, bool spinDown);
 
 /*
+Author: Samuel Mailhot
 No parameters.
-No returns - runs the cleaning procedure in accordance with the flowchart.
+Returns 1 if the procedure succeeded, and 0 if it failed.
 */
-void clean();
+bool clean();
 
 /*
-No parameters.
+Author: Stefan Mathies
+Parameters: float currentdist (the distance into the pipe the robot has travelled)
 No returns - runs the escape procedure in accordance with the flowchart.
 */
-void escape();
+void escape(float &currentdist);
 
 /*
+Author: Stefan Mathies
 No returns - runs the shutdown procedure in accordance with the flowchart.
 */
 void shutdown();
