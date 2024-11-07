@@ -2,7 +2,7 @@
 
 #include "tests.c"
 
-const int TEST = 0; //this can be set to anything between 1 and 12, to select which test to run
+const int TEST = 0; //this can be set to anything between 1 and 13, to select which test to run
 
 task main(){
 	switch (TEST) {
@@ -15,11 +15,12 @@ task main(){
 		case 7: testEscape();				break;
 		case 8: testShutdown();				break;
 		case 9: testCheckSensors();			break;
-		case 10: testHealthCheck();			break;
-		case 11: testPrepLog();				break;
-		case 12: testSendLog();				break;
+		case 10: testCheckUltrasonicDist();	break;
+		case 11: testHealthCheck();			break;
+		case 12: testPrepLog();				break;
+		case 13: testSendLog();				break;
 		default:
-			DisplayTextLine(7, "Invalid test number.");
+			displayTextLine(10, "Invalid test number.");
 			break;
 	}
 }

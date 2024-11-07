@@ -1,10 +1,8 @@
 //tests.c
 
-//includes everything so it can be tested
-#include "../src/startup.h"
-#include "../src/tasks.h"
-#include "../src/checks.h"
-#include "../src/logger.h"
+//including startup and tasks includes everything by extension
+#include "../src/startup.c"
+#include "../src/tasks.c"
 
 void testGetUserDistance();		//1
 void testInitializeSensors();	//2
@@ -15,8 +13,9 @@ void testClean();				//6
 void testEscape();				//7
 void testShutdown();			//8
 void testCheckSensors();		//9
-void testHealthCheck();			//10
-void testPrepLog();				//11
-void testSendLog;				//12
+void testUltrasonicDist();		//10
+void testHealthCheck();			//11
+void testPrepLog();				//12
+void testSendLog;				//13
 
 //write all the test functions below this line
