@@ -1,6 +1,6 @@
 //checks.c
 #include "sensors.h"
-
+//test cmt
 //holds the max tolerable difference between the accelerometer and the motor enconders
 const float TOLERANCE = 0.5;
 
