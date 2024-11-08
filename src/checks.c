@@ -1,6 +1,7 @@
 //checks.c
+
 #include "sensors.h"
-//test cmt
+
 //holds the max tolerable difference between the accelerometer and the motor enconders
 const float TOLERANCE = 0.5;
 
@@ -33,7 +34,7 @@ Returns: 0 if everything passes
 		 5 if the robot should start cleaning operations
 		 10 if the robot should tension the wheels more
 */
-int healthCheck(float &currentdist, float endpoint, float acceldist, float drivedist, int time);
+int healthCheck(float &currentdist, float &endpoint, float &acceldist, float drivedist, int time);
 
 /* function implementations below this line ----------------------------------- */
 
@@ -45,7 +46,7 @@ float ultrasonicDist(){
 	return (SensorValue[USPORT]-USOFFSET);
 }
 
-int healthCheck(float &currentdist, float endpoint, float acceldist, float drivedist, int time){
+int healthCheck(float &currentdist, float &endpoint, float &acceldist, float drivedist, int time){
 	int state = 0;
 
 	if (currentdist >= endpoint){

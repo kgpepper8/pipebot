@@ -1,17 +1,7 @@
 //tasks.c
-#include "logger.c"
-#include "checks.c"
 
 //holds the conversion factor for motor encoder count to distance
 const float CONV = PI*2.75/180;
-
-/*
-Author: Kiran Ghanekar
-Parameters: float endpoint (the user-defined distance that the robot should advance)
-			float drivedist (the distance to drive before each health check)
-No returns - coordinates the nominal operation of the robot, as described by the flowchart.
-*/
-void mainLoop(float endpoint, float drivedist);
 
 /*
 Author: Emily D'Silva
@@ -54,31 +44,8 @@ void shutdown();
 
 /* function implementations below this line ----------------------------------- */
 
-void mainLoop(float endpoint, float drivedist){
-	float currentdist = 0, acceldist = 0;
-	int state = 0, time = 0, pastRotations = 0;
-	bool go = true;
+void mainLoop(float &endpoint, float &drivedist){
 
-	string mesg = "Robot initialized. Endpoint is ";
-	sendLog(time, mesg, endpoint);
-
-	while (go) {
-		time++;
-		acceldist = drive(drivedist, 1, 0, currentdist, time);
-		state = healthCheck(currentdist, endpoint, acceldist, drivedist, time);
-		if (state == 10){
-			tensionWheels(pastRotations, 0);
-		}
-		else if (state == 5){
-			clean();
-		}
-		else if (state == 1){
-			go = false;
-		}
-	}
-
-	escape(currentdist);
-	shutdown();
 
 }
 

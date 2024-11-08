@@ -1,4 +1,5 @@
 //logger.c
+
 #include "fileLib/PC_FileIO.c"
 
 //holds the desired name of the logfile
@@ -18,8 +19,8 @@ Parameters: int time (the log's timestamp)
 						(optional) float numarg (a numerical thing to log, may or may not be needed)
 No returns. Writes a log message to the file returned by prepLog().
 */
-void sendLog(int time, string mesg);
-void sendLog(int time, string mesg, float numarg);
+void sendLog(int time, string &mesg);
+void sendLog(int time, string &mesg, float &numarg);
 
 /* function implementations below this line ----------------------------------- */
 
@@ -27,7 +28,7 @@ TFileHandle prepLog(){
 
 }
 
-void sendLog(int time, string mesg){
+void sendLog(int time, string &mesg){
 	TFileHandle logfile = prepLog();
 
 	writeLongPC(logfile, time);
@@ -36,7 +37,7 @@ void sendLog(int time, string mesg){
 	writeEndlPC(logfile);
 }
 
-void sendLog(int time, string mesg, float numarg){
+void sendLog(int time, string &mesg, float &numarg){
 	TFileHandle logfile = prepLog();
 
 	writeLongPC(logfile, time);
