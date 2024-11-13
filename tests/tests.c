@@ -25,11 +25,17 @@ void testSendLog();						//12
 void testHealthCheck(){
 	float currentdist = 100;
 	float enddist = 1000;
-	float accel = 1;
+	bool accel = true;
+	float drivedist = 5;
+	int time = 5;
 
-	healthCheck();
+	healthCheck(currentdist, enddist, accel, drivedist, time);
 }
 
 void testSendLog(){
-	SendLog();
+	int time = 151;
+	float arg = 55.6;
+	string teststring = "Message. ";
+	sendLog(time, teststring);
+	sendLog(time, teststring, arg);
 }

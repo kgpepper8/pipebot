@@ -26,7 +26,7 @@ Returns: 0 if everything passes
 		 5 if the robot should start cleaning operations
 		 10 if the robot should tension the wheels more
 */
-int healthCheck(float &currentdist, float &endpoint, float &acceldist, float drivedist, int time);
+int healthCheck(float &currentdist, float &endpoint, bool didDrive, float drivedist, int &time);
 
 /* function implementations below this line ----------------------------------- */
 
@@ -38,7 +38,7 @@ float ultrasonicDist(){
 	return (SensorValue[USPORT]-USOFFSET);
 }
 
-int healthCheck(float &currentdist, float &endpoint, bool didDrive, float drivedist, int time){
+int healthCheck(float &currentdist, float &endpoint, bool didDrive, float drivedist, int &time){
 	int state = 0;
 
 	if (currentdist >= endpoint){

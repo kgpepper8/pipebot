@@ -10,7 +10,7 @@ Parameters: float dist (the distance to drive)
 			int time (an integer corresponding to the current time value)
 Returns whether the robot was or was not moving after driving 'dist' in 'direction'.
 */
-bool drive(float dist, bool direction, bool toStop, int speed, float &currentdist, int time);
+bool drive(float dist, bool direction, bool toStop, int speed, float &currentdist, int &time);
 
 /*
 Author: Samuel Mailhot
@@ -32,7 +32,7 @@ Author: Stefan Mathies
 Parameters: float currentdist (the distance into the pipe the robot has travelled)
 No returns - runs the escape procedure in accordance with the flowchart.
 */
-void escape(float &currentdist, int time);
+void escape(float &currentdist, int &time);
 
 /*
 Author: Stefan Mathies
@@ -42,7 +42,7 @@ void shutdown();
 
 /* function implementations below this line ----------------------------------- */
 
-bool drive(float dist, bool direction, bool toStop, int speed, float &currentdist, int time) {
+bool drive(float dist, bool direction, bool toStop, int speed, float &currentdist, int &time) {
 
 }
 
@@ -54,12 +54,12 @@ bool clean() {
 
 }
 
-void escape(float &currentdist, int time) {
+void escape(float &currentdist, int &time) {
 	float partialdistrem = currentdist * (1/3);
 	bool acceltrue = true;
 
 	while ((currentdist > partialdistrem) && acceltrue == 1) {
-		if (drive(5, 0, 0, SPEEDHIGH, currentdist, time) < 10) //10 to account for error (can change buffer)//
+		if (drive(5, 0, 0, SPEEDHIGH, currentdist, time))
 		{
 			acceltrue = false;
 		}
@@ -67,8 +67,8 @@ void escape(float &currentdist, int time) {
 
 	if (acceltrue == false)
 	{
-		displayString(5, "Mission Failure: Shutting Down");
-		wait1Msec(10000);
+		string message = "Mission Failure: Shutting Down";
+		sendLog(time, message);
 	}
 	else
 	{
