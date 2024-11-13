@@ -1,9 +1,7 @@
 //logger.c
 
 #include "fileLib/PC_FileIO.c"
-
-//holds the desired name of the logfile
-const string LOGNAME = "log.txt";
+#include "consts.h"
 
 /*
 Author: Samuel Mailhot

@@ -1,8 +1,9 @@
 //tests.c
 
 //includes everything
-#include "../src/tasks.c"
+#include "../src/consts.h"
 #include "../src/logger.c"
+#include "../src/tasks.c"
 #include "../src/checks.c"
 #include "../src/startup.c"
 
@@ -20,3 +21,15 @@ void testPrepLog();						//11
 void testSendLog();						//12
 
 //write all the test functions below this line
+
+void testHealthCheck(){
+	float currentdist = 100;
+	float enddist = 1000;
+	float accel = 1;
+
+	healthCheck();
+}
+
+void testSendLog(){
+	SendLog();
+}

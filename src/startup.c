@@ -16,10 +16,22 @@ bool initializeSensors();
 
 /* function implementations below this line ----------------------------------- */
 
-float getUserDistance(){
+float getUserDistance() {
+	float maxdist = 0;
 
+	while (!getButtonPress(buttonEnter)) {
+		displayString(5, "Distance to clear: %f", maxdist);
+		if (getButtonPress(buttonUp)) {
+			maxdist += 5;
+		} else if(getButtonPress(buttonDown) && maxdist >= 5) {
+			maxdist -=5;
+		}
+	}
+	displayString(5, "Distance to clear: %d", maxdist);
+	maxdist = maxdist * ((2 * PI * 2.75)/ 360); //Converts distance to motor encoder counts//
+	return maxdist;
 }
 
-bool initializeSensors(){
+bool initializeSensors() {
 
 }
