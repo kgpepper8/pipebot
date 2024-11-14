@@ -1,13 +1,6 @@
 //checks.c
 
 /*
-Author: Emily D'Silva
-No parameters.
-Returns 1 if all sensors are working, otherwise returns 0.
-*/
-bool checkSensors();
-
-/*
 Author: Kiran Ghanekar
 No parameters.
 Returns the distance from the front of the robot to the nearest obstacle based on the ultrasonic sensor reading.
@@ -30,10 +23,6 @@ int healthCheck(float &currentdist, float &endpoint, bool didDrive, float drived
 
 /* function implementations below this line ----------------------------------- */
 
-bool checkSensors(){
-
-}
-
 float ultrasonicDist(){
 	return (SensorValue[USPORT]-USOFFSET);
 }
@@ -45,10 +34,8 @@ int healthCheck(float &currentdist, float &endpoint, bool didDrive, float drived
 		state = 1;
 	}
 	else if (didDrive){
-		if (checkSensors()) {
-			if (ultrasonicDist()){
-				state = 5;
-			}
+		if (ultrasonicDist()){
+			state = 5;
 		}
 		else {
 			state = 1;

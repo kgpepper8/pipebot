@@ -12,7 +12,7 @@ Author: Emily D'Silva
 No parameters.
 Initializes and resets sensors, then returns 1 if it succeeded and 0 if it failed.
 */
-bool initializeSensors();
+void initializeSensors();
 
 /* function implementations below this line ----------------------------------- */
 
@@ -32,6 +32,15 @@ float getUserDistance() {
 	return maxdist;
 }
 
-bool initializeSensors() {
+void initializeSensors() {
+	SensorType[USPORT] = sensorEV3_Ultrasonic;
+	wait1Msec(50);
 
+	SensorType[TOUCHPORT] = sensorEV3_Touch;
+	wait1Msec(50);
+
+	nMotorEncoder[FDRIVE] = 0;
+	nMotorEncoder[RDRIVE] = 0;
+	nMotorEncoder[LDSCREW] = 0;
+	nMotorEncoder[BRUSH] = 0;
 }

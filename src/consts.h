@@ -24,3 +24,6 @@
 //speed constants
 	const int SPEEDHIGH = 50;
 	const int SPEEDLOW = 25;
+
+//minimum accelration
+	const int MINACCEL = 100;

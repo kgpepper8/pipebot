@@ -43,7 +43,31 @@ void shutdown();
 /* function implementations below this line ----------------------------------- */
 
 bool drive(float dist, bool direction, bool toStop, int speed, float &currentdist, int &time) {
+	bool isMoving;
 
+	nMotorEncoder[motorA] = 0;
+
+	if(direction) {
+		motor[motorA] = motor[motorD] = speed;
+	} else {
+		motor[motorA] = motor[motorD] = -speed;
+	}
+
+	while(nMotorEncoder[motorA] <= dist * CONV) {}
+
+	float acc2 = SensorValue(ACCPORT);
+
+	if (acc2 > MINACCEL) { //arbitrairy acceleration val, change later
+		isMoving = true;
+	} else {
+		isMoving = false;
+	}
+
+	if(toStop) {
+		motor[motorA] = motor[motorD] = 0;
+	}
+
+	return isMoving;
 }
 
 void tensionWheels(int &pastRotations, bool spinDown) {
@@ -59,25 +83,21 @@ void escape(float &currentdist, int &time) {
 	bool acceltrue = true;
 
 	while ((currentdist > partialdistrem) && acceltrue == 1) {
-		if (drive(5, 0, 0, SPEEDHIGH, currentdist, time))
-		{
+		if (drive(5, 0, 0, SPEEDHIGH, currentdist, time)) {
 			acceltrue = false;
 		}
 	}
 
-	if (acceltrue == false)
-	{
+	if (acceltrue == false) {
 		string message = "Mission Failure: Shutting Down";
 		sendLog(time, message);
-	}
-	else
-	{
+	} else {
 		setSoundVolume(100);
 		playSoundFile("Robotexitnoise.mp3");
-		while(!getButtonPress(buttonAny) && currentdist != 0){
+		while(!getButtonPress(buttonAny) && currentdist != 0) {
 			drive(5, 0, 0, SPEEDHIGH, currentdist, time);
 		}
-	drive(0, 0, 1, SPEEDLOW, currentdist, time);
+		drive(0, 0, 1, SPEEDLOW, currentdist, time);
 	}
 }
 
