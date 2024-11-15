@@ -1,30 +1,11 @@
 //logger.c
 
-#include "fileLib/PC_FileIO.c"
-#include "consts.h"
-
-/*
-Author: Samuel Mailhot
-No parameters.
-Creates or opens, then returns, a logfile with the proper name.
-*/
-TFileHandle prepLog();
-
-/*
-Author: Kiran Ghanekar
-Parameters: int time (the log's timestamp)
-						string msg (the message to be written)
-						(optional) float numarg (a numerical thing to log, may or may not be needed)
-No returns. Writes a log message to the file returned by prepLog().
-*/
-void sendLog(int time, string mesg);
-void sendLog(int time, string mesg, float &numarg);
-
-/* function implementations below this line ----------------------------------- */
-
-TFileHandle prepLog(){
-
+TFileHandle prepLog() {
+	TFileHandle fout;
+	openWritePC(fout, LOGFILE);
+	return fout;
 }
+
 
 void sendLog(int time, string mesg){
 	TFileHandle logfile = prepLog();

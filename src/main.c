@@ -1,9 +1,10 @@
 //main.c
 #include "consts.h"
-#include "logger.c"
+#include "funcs.h"
+#include "startup.c"
 #include "tasks.c"
 #include "checks.c"
-#include "startup.c"
+#include "logger.c"
 
 /*
 Author: Kiran Ghanekar
@@ -31,7 +32,7 @@ task main(){
 			tensionWheels(pastRotations, 0);
 		}
 		else if (state == 5){
-			clean();
+			clean(currentdist, time);
 		}
 		else if (state == 1){
 			go = false;
@@ -39,5 +40,5 @@ task main(){
 	}
 
 	escape(currentdist, time);
-	shutdown();
+	shutdown(pastRotations, time);
 }

@@ -1,47 +1,5 @@
 //tasks.c
 
-/*
-Author: Emily D'Silva
-Parameters: float dist (the distance to drive)
-			bool direction (1 for forward, 0 for backward)
-			bool stop (1 to stop at the end, 0 to keep moving)
-			int speed (between 0 and 100)
-			float &currentdist (reference to a variable containing how far the robot has advanced)
-			int time (an integer corresponding to the current time value)
-Returns whether the robot was or was not moving after driving 'dist' in 'direction'.
-*/
-bool drive(float dist, bool direction, bool toStop, int speed, float &currentdist, int &time);
-
-/*
-Author: Samuel Mailhot
-Parameters: int &pastRotations (reference to a variable holding the number of times the lead screw has already turned)
-			bool spinDown (if true, spin the leadscrew all the way back to 0 rotations)
-No returns - rotates the lead screw a certain amount based on pastRotations to tension the wheels further.
-*/
-void tensionWheels(int &pastRotations, bool spinDown);
-
-/*
-Author: Samuel Mailhot
-No parameters.
-Returns 1 if the procedure succeeded, and 0 if it failed.
-*/
-bool clean();
-
-/*
-Author: Stefan Mathies
-Parameters: float currentdist (the distance into the pipe the robot has travelled)
-No returns - runs the escape procedure in accordance with the flowchart.
-*/
-void escape(float &currentdist, int &time);
-
-/*
-Author: Stefan Mathies
-No returns - runs the shutdown procedure in accordance with the flowchart.
-*/
-void shutdown();
-
-/* function implementations below this line ----------------------------------- */
-
 bool drive(float dist, bool direction, bool toStop, int speed, float &currentdist, int &time) {
 	bool isMoving;
 
@@ -71,11 +29,48 @@ bool drive(float dist, bool direction, bool toStop, int speed, float &currentdis
 }
 
 void tensionWheels(int &pastRotations, bool spinDown) {
-
+	if(!spinDown) {
+		nMotorEncoder[LDSCREW] = 0;
+		motor[LDSCREW] = 100;
+		while(nMotorEncoder[LDSCREW] < 360*LDSCREWROTS){}
+		motor[LDSCREW] = 0;
+		pastRotations += nMotorEncoder[LDSCREW];
+  }
+  else {
+  	nMotorEncoder[LDSCREW] = 0;
+  	motor[LDSCREW] = -100;
+    while(abs(nMotorEncoder[LDSCREW]) < pastRotations){}
+    motor[LDSCREW] = 0;
+ 	}
 }
 
-bool clean() {
+bool clean(float &currentdist, int &time) {
+	// C3 to C6 on the flow chart
 
+	//Blockage was detected, function called
+	for(int i = 0; i < HITS; i++) {
+		//C2: reverse 25cm - stops
+		drive(25, 0, 1, 50, currentdist, time);
+
+		//C3: spin brush (spin motor)
+		motor[BRUSH] = 100;
+		wait1Msec(1000);
+
+		//Add funny noise
+		//C4: Full speed ahead (until blockage hit -  reverse 15 and check for blockage (UltraSonic) if no blockage return 1
+		while (SensorValue(TOUCHPORT) != 1){
+			drive(1, 1, 0, 100, currentdist, time);
+		}
+		drive(5, 1, 1, 100, currentdist, time);
+		wait1Msec(1000);
+
+		drive(20, 0, 1, 50, currentdist, time);
+
+		if(!ultrasonicDist()){
+			return true;
+    }
+ 	}
+ 	return false;
 }
 
 void escape(float &currentdist, int &time) {
@@ -101,6 +96,8 @@ void escape(float &currentdist, int &time) {
 	}
 }
 
-void shutdown() {
-
+void shutdown(int &pastRotations, int &time) {
+	tensionWheels(pastRotations, 1);
+	string mesg = "Shut down.";
+	sendLog(time, mesg);
 }

@@ -5,12 +5,12 @@
 
 //motor locations
 	const tMotor FDRIVE = motorA;
-	const tMotor RDRIVE = motorB;
+	const tMotor RDRIVE = motorD;
 	const tMotor BRUSH = motorC;
 	const tMotor LDSCREW = motorD;
 
 //holds the desired name of the logfile
-	const string LOGNAME = "log.txt";
+	const string LOGFILE = "log.txt";
 
 //holds the distance, in cm, driven between health checks
 	const float DRIVEDIST = 5;
@@ -27,3 +27,12 @@
 
 //minimum accelration
 	const int MINACCEL = 100;
+
+//number of times to ram
+	const int HITS = 5;
+
+//distance for something to be considered a blockage
+	const int BLOCKDIST = 50;
+
+//how many times to rotate the lead screw for tensioning
+	const int LDSCREWROTS = 10;

@@ -1,30 +1,7 @@
 //checks.c
 
-/*
-Author: Kiran Ghanekar
-No parameters.
-Returns the distance from the front of the robot to the nearest obstacle based on the ultrasonic sensor reading.
-*/
-float ultrasonicDist();
-
-/*
-Author: Kiran Ghanekar
-Parameters: float &currentdist (reference to a variable holding the distance moved by the robot since power-on)
-			float endpoint (the user-input endpoint)
-			bool didDrive (whether or not the robot moved, from the accelerometer)
-			float drivedist (the distance to drive before each health check)
-			int time (the current time counter)
-Returns: 0 if everything passes
-		 1 if the robot should start to leave the pipe
-		 5 if the robot should start cleaning operations
-		 10 if the robot should tension the wheels more
-*/
-int healthCheck(float &currentdist, float &endpoint, bool didDrive, float drivedist, int &time);
-
-/* function implementations below this line ----------------------------------- */
-
-float ultrasonicDist(){
-	return (SensorValue[USPORT]-USOFFSET);
+bool ultrasonicDist(){
+	return (SensorValue[USPORT]-USOFFSET) < BLOCKDIST;
 }
 
 int healthCheck(float &currentdist, float &endpoint, bool didDrive, float drivedist, int &time){
@@ -34,7 +11,7 @@ int healthCheck(float &currentdist, float &endpoint, bool didDrive, float drived
 		state = 1;
 	}
 	else if (didDrive){
-		if (ultrasonicDist()){
+		if (ultrasonicDist() < BLOCKDIST){
 			state = 5;
 		}
 		else {
