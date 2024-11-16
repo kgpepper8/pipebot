@@ -3,15 +3,15 @@
 bool drive(float dist, bool direction, bool toStop, int speed, float &currentdist, int &time) {
 	bool isMoving;
 
-	nMotorEncoder[motorA] = 0;
+	nMotorEncoder[FDRIVE] = 0;
 
 	if(direction) {
-		motor[motorA] = motor[motorD] = speed;
+		motor[FDRIVE] = motor[RDRIVE] = speed;
 	} else {
-		motor[motorA] = motor[motorD] = -speed;
+		motor[FDRIVE] = motor[RDRIVE] = -speed;
 	}
 
-	while(nMotorEncoder[motorA] <= dist * CONV) {}
+	while(nMotorEncoder[FDRIVE] <= dist * CONV) {}
 
 	float acc2 = SensorValue(ACCPORT);
 
@@ -22,7 +22,7 @@ bool drive(float dist, bool direction, bool toStop, int speed, float &currentdis
 	}
 
 	if(toStop) {
-		motor[motorA] = motor[motorD] = 0;
+		motor[FDRIVE] = motor[RDRIVE] = 0;
 	}
 
 	return isMoving;

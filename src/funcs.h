@@ -13,6 +13,7 @@
 	*/
 	void initializeSensors();
 
+
 //implemented in logger.c
 	#include "fileLib/PC_FileIO.c"
 
@@ -32,6 +33,7 @@
 	*/
 	void sendLog(int time, string mesg);
 	void sendLog(int time, string mesg, float &numarg);
+
 
 //implemented in tasks.c
 	/*
@@ -73,6 +75,7 @@
 	No returns - runs the shutdown procedure in accordance with the flowchart.
 	*/
 	void shutdown(int &pastRotations, int &time);
+
 
 //implemented in checks.c
 	/*

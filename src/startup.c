@@ -11,8 +11,8 @@ float getUserDistance() {
 			maxdist -=5;
 		}
 	}
-	displayString(5, "Distance to clear: %d", maxdist);
-	maxdist = maxdist * ((2 * PI * 2.75)/ 360); //Converts distance to motor encoder counts//
+	displayString(5, "Distance to clear: %f", maxdist);
+	maxdist = maxdist * CONV; //Converts distance to motor encoder counts
 	return maxdist;
 }
 
