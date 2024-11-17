@@ -28,11 +28,20 @@ task main(){
 		time++;
 		didDrive = drive(DRIVEDIST, 1, 0, SPEEDHIGH, currentdist, time);
 		state = healthCheck(currentdist, endpoint, didDrive, DRIVEDIST, time);
+
 		if (state == 10){
 			tensionWheels(pastRotations, 0);
+			mesg = "Tensioned wheels.";
+			sendLog(time, mesg);
 		}
 		else if (state == 5){
-			clean(currentdist, time);
+			if(clean(currentdist, time)){
+				mesg = "Cleaned blockage.";
+				sendLog(time, mesg);
+			}
+			else {
+				state = 1;
+			}
 		}
 		else if (state == 1){
 			go = false;

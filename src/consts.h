@@ -22,17 +22,21 @@
 	const float CONV = PI*2.75/180;
 
 //speed constants
+	const int SPEEDRAM = 100;
 	const int SPEEDHIGH = 50;
 	const int SPEEDLOW = 25;
 
-//minimum accelration
+//minimum accelration to be considered moving
 	const int MINACCEL = 100;
 
-//number of times to ram
+//number of times to attempt cleaning
 	const int HITS = 5;
 
 //distance for something to be considered a blockage
-	const int BLOCKDIST = 50;
+	const int BLOCKDIST = 25;
 
-//how many times to rotate the lead screw for tensioning
-	const int LDSCREWROTS = 10;
+//how many times to rotate motor for tensioning
+	const int LDSCREWROTS = 10 * 360 * 24;
+
+//what distance to leave at the end while escaping
+	const int DISTTOLEAVE = 30;

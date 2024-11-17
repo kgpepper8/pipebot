@@ -107,6 +107,7 @@ void testShutdown(){
 }
 
 void testInitializeSensors(){
+	initializeSensors();
 }
 
 void testDrive(){
@@ -116,6 +117,9 @@ void testTensionWheels(){
 }
 
 void testClean(){
+	float currentdist = 10;
+	int time = 10;
+	clean(currentdist, time);
 }
 
 void testUltrasonicDist(){
@@ -131,5 +135,5 @@ void testThing(){
 
 	tensionWheels(pastRotations, time);
 
-	drive(10, 1, 1, 100, currentdist, time);
+	drive(DRIVEDIST, 1, 1, 100, currentdist, time);
 }
