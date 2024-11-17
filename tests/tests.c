@@ -20,6 +20,8 @@ void testHealthCheck();				//9
 void testPrepLog();						//10
 void testSendLog();						//11
 
+void testThing(); //0
+
 //write all the test functions below this line
 
 void testHealthCheck(){
@@ -102,4 +104,32 @@ void testShutdown(){
 	{
 		displayString(3, "Shutdown failure");
 	}
+}
+
+void testInitializeSensors(){
+}
+
+void testDrive(){
+}
+
+void testTensionWheels(){
+}
+
+void testClean(){
+}
+
+void testUltrasonicDist(){
+}
+
+void testPrepLog(){
+}
+
+void testThing(){
+	int pastRotations = 360*12;
+	int time = 1;
+	float currentdist = 100;
+
+	tensionWheels(pastRotations, time);
+
+	drive(10, 1, 1, 100, currentdist, time);
 }

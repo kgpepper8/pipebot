@@ -1,13 +1,13 @@
 //sensor locations
-	const tSensors USPORT = S1;
+	const tSensors USPORT = S3;
 	const tSensors ACCPORT = S2;
-	const tSensors TOUCHPORT = S3;
+	const tSensors TOUCHPORT = S4;
 
 //motor locations
-	const tMotor FDRIVE = motorA;
-	const tMotor RDRIVE = motorD;
-	const tMotor BRUSH = motorC;
-	const tMotor LDSCREW = motorD;
+	const tMotor FDRIVE = motorB;
+	const tMotor RDRIVE = motorC;
+	const tMotor BRUSH = motorD;
+	const tMotor LDSCREW = motorA;
 
 //holds the desired name of the logfile
 	const string LOGFILE = "log.txt";

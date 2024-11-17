@@ -6,6 +6,8 @@ const int TEST = 0; //this can be set to anything between 1 and 11, to select wh
 
 task main(){
 	switch (TEST) {
+		case 0: testThing(); break;
+
 		case 1: testGetUserDistance();		break;
 		case 2: testInitializeSensors();	break;
 		case 3: testDrive();							break;

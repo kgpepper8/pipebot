@@ -6,14 +6,16 @@ bool drive(float dist, bool direction, bool toStop, int speed, float &currentdis
 	nMotorEncoder[FDRIVE] = 0;
 
 	if(direction) {
-		motor[FDRIVE] = motor[RDRIVE] = speed;
+		motor[FDRIVE] = speed;
+		motor[RDRIVE] = -speed;
 	} else {
-		motor[FDRIVE] = motor[RDRIVE] = -speed;
+		motor[FDRIVE] = -speed;
+		motor[RDRIVE] = speed;
 	}
 
-	while(nMotorEncoder[FDRIVE] <= dist * CONV) {}
+	while(nMotorEncoder[FDRIVE] * CONV <= dist) {}
 
-	float acc2 = SensorValue(ACCPORT);
+	float acc2 = SensorValue[ACCPORT];
 
 	if (acc2 > MINACCEL) { //arbitrairy acceleration val, change later
 		isMoving = true;

@@ -11,7 +11,7 @@ int healthCheck(float &currentdist, float &endpoint, bool didDrive, float drived
 		state = 1;
 	}
 	else if (didDrive){
-		if (ultrasonicDist() < BLOCKDIST){
+		if (ultrasonicDist()){
 			state = 5;
 		}
 		else {
