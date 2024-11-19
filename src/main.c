@@ -7,14 +7,14 @@
 #include "logger.c"
 
 /*
-Author: Kiran Ghanekar
-No parameters.
-No returns - coordinates the nominal operation of the robot, as described by the flowchart.
+Main function.
+No returns, no parameters.
 */
 task main(){
 	initializeSensors();
 
-	float endpoint = getUserDistance();
+	//float endpoint = getUserDistance();
+	float endpoint = 100;
 
 	float currentdist = 0;
 	int state = 0, time = 0, pastRotations = 0;
@@ -30,9 +30,10 @@ task main(){
 		state = healthCheck(currentdist, endpoint, didDrive, DRIVEDIST, time);
 
 		if (state == 10){
-			tensionWheels(pastRotations, 0);
-			mesg = "Tensioned wheels.";
+			//tensionWheels(pastRotations, 0);
+			mesg = "Giving up because we can't properly tension wheels.";
 			sendLog(time, mesg);
+			state = 1;
 		}
 		else if (state == 5){
 			if(clean(currentdist, time)){

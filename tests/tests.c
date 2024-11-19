@@ -126,14 +126,22 @@ void testUltrasonicDist(){
 }
 
 void testPrepLog(){
+	TFileHandle fout;
+	openWritePC(fout, "hello.txt");
+	writeTextPC(fout, "greetings joyful peopel");
 }
 
 void testThing(){
-	int pastRotations = 360*12;
+	setSoundVolume(100);
+	playSoundFile("Robotexitnoise.mp3");
+
+	int pastRotations = 360*12*10000;
 	int time = 1;
 	float currentdist = 100;
 
-	tensionWheels(pastRotations, time);
+	tensionWheels(pastRotations, 0);
 
-	drive(DRIVEDIST, 1, 1, 100, currentdist, time);
+	motor[LDSCREW] = 100;
+
+	//drive(DRIVEDIST, 1, 1, 100, currentdist, time);
 }

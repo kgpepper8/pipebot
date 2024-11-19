@@ -2,7 +2,7 @@
 
 TFileHandle prepLog() {
 	TFileHandle fout;
-	openWritePC(fout, LOGFILE);
+	openWritePC(fout, "log.txt");
 	return fout;
 }
 

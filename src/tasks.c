@@ -1,7 +1,7 @@
 //tasks.c
 
 bool drive(float dist, bool direction, bool toStop, int speed, float &currentdist, int &time) {
-	bool isMoving;
+	bool isMoving = false;
 
 	nMotorEncoder[FDRIVE] = 0;
 
@@ -13,7 +13,7 @@ bool drive(float dist, bool direction, bool toStop, int speed, float &currentdis
 		motor[RDRIVE] = speed;
 	}
 
-	while(nMotorEncoder[FDRIVE] * CONV <= dist) {}
+	while(nMotorEncoder[FDRIVE] < dist * CONV) {}
 
 	float acc2 = SensorValue[ACCPORT];
 
@@ -36,14 +36,14 @@ bool drive(float dist, bool direction, bool toStop, int speed, float &currentdis
 void tensionWheels(int &pastRotations, bool spinDown) {
 	if(!spinDown) {
 		nMotorEncoder[LDSCREW] = 0;
-		motor[LDSCREW] = 100;
+		motor[LDSCREW] = -100;
 		while(nMotorEncoder[LDSCREW] < LDSCREWROTS){}
 		motor[LDSCREW] = 0;
 		pastRotations += nMotorEncoder[LDSCREW];
   }
   else {
   	nMotorEncoder[LDSCREW] = 0;
-  	motor[LDSCREW] = -100;
+  	motor[LDSCREW] = 100;
     while(abs(nMotorEncoder[LDSCREW]) < pastRotations){}
     motor[LDSCREW] = 0;
  	}
@@ -84,9 +84,6 @@ void escape(float &currentdist, int &time) {
 		sendLog(time, message);
 	}
 	else {
-		setSoundVolume(100);
-		playSoundFile("Robotexitnoise.mp3");
-
 		string message = "Escaping.";
 		sendLog(time, message);
 
@@ -98,7 +95,7 @@ void escape(float &currentdist, int &time) {
 }
 
 void shutdown(int &pastRotations, int &time) {
-	tensionWheels(pastRotations, 1);
+	//tensionWheels(pastRotations, 1);
 	string mesg = "Shut down.";
 	sendLog(time, mesg);
 }

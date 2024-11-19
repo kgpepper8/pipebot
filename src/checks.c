@@ -19,7 +19,7 @@ int healthCheck(float &currentdist, float &endpoint, bool didDrive, float drived
 		}
 	}
 	else {
-		didDrive = drive(drivedist, 0, 1, SPEEDHIGH, currentdist, time);
+		didDrive = drive(DRIVEDIST, 0, 1, SPEEDHIGH, currentdist, time);
 		if (didDrive) {
 			state = 1;
 		}

@@ -1,16 +1,13 @@
 //sensor locations
-	const tSensors USPORT = S3;
-	const tSensors ACCPORT = S2;
-	const tSensors TOUCHPORT = S4;
+	const tSensors USPORT = S1;
+	const tSensors ACCPORT = S3;
+	const tSensors TOUCHPORT = S2;
 
 //motor locations
-	const tMotor FDRIVE = motorB;
-	const tMotor RDRIVE = motorC;
-	const tMotor BRUSH = motorD;
-	const tMotor LDSCREW = motorA;
-
-//holds the desired name of the logfile
-	const string LOGFILE = "log.txt";
+	const tMotor FDRIVE = motorA;
+	const tMotor RDRIVE = motorB;
+	const tMotor BRUSH = motorC;
+	const tMotor LDSCREW = motorC;
 
 //holds the distance, in cm, driven between health checks
 	const float DRIVEDIST = 5;
@@ -19,7 +16,7 @@
 	const float USOFFSET = 20;
 
 //holds the conversion factor for motor encoder count to distance
-	const float CONV = PI*2.75/180;
+	const float CONV = 180*2.75/PI;
 
 //speed constants
 	const int SPEEDRAM = 100;
