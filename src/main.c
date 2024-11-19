@@ -11,44 +11,49 @@ Main function.
 No returns, no parameters.
 */
 task main(){
+	TFileHandle logfile = prepLog();
+
 	initializeSensors();
 
-	//float endpoint = getUserDistance();
-	float endpoint = 100;
+	float endpoint = getUserDistance();
+	wait1Msec(5000);
 
 	float currentdist = 0;
-	int state = 0, time = 0, pastRotations = 0;
+	int state = 0, time = 0, pastRotations = 0, failures = 0;
 	bool go = true, didDrive = false;
 
 	string mesg = "Robot initialized. Endpoint is ";
-	sendLog(time, mesg, endpoint);
+	sendLog(logfile, time, mesg, endpoint);
 
 	//main loop
 	while (go) {
 		time++;
-		didDrive = drive(DRIVEDIST, 1, 0, SPEEDHIGH, currentdist, time);
-		state = healthCheck(currentdist, endpoint, didDrive, DRIVEDIST, time);
+		didDrive = drive(DRIVEDIST, 1, 0, SPEEDHIGH, currentdist, time, logfile);
+		state = healthCheck(currentdist, endpoint, didDrive, failures, DRIVEDIST, time, logfile);
 
 		if (state == 10){
-			//tensionWheels(pastRotations, 0);
-			mesg = "Giving up because we can't properly tension wheels.";
-			sendLog(time, mesg);
+			tensionWheels(pastRotations, 0);
 			state = 1;
 		}
 		else if (state == 5){
-			if(clean(currentdist, time)){
+			if(clean(currentdist, time, logfile)){
 				mesg = "Cleaned blockage.";
-				sendLog(time, mesg);
+				sendLog(logfile, time, mesg);
 			}
 			else {
 				state = 1;
+				mesg = "Failed cleaning.";
+				sendLog(logfile, time, mesg);
 			}
 		}
-		else if (state == 1){
+
+		if (state == 1){
+			mesg = "Health check failure";
+			sendLog(logfile, time, mesg);
 			go = false;
 		}
 	}
 
-	escape(currentdist, time);
-	shutdown(pastRotations, time);
+	escape(currentdist, time, logfile);
+	shutdown(pastRotations, time, logfile);
 }

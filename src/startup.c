@@ -6,15 +6,14 @@ float getUserDistance() {
 	while (!getButtonPress(buttonEnter)) {
 		displayString(10, "Distance to clear: %1.2f", maxdist);
 		if (getButtonPress(buttonUp)) {
-			maxdist += 5;
+			maxdist += 10;
 			while(getButtonPress(buttonAny)){}
-		} else if(getButtonPress(buttonDown) && maxdist >= 5) {
-			maxdist -=5;
+		} else if(getButtonPress(buttonDown) && maxdist >= 10) {
+			maxdist -=10;
 			while(getButtonPress(buttonAny)){}
 		}
 	}
 	displayString(5, "Distance to clear: %f", maxdist);
-	maxdist = maxdist * CONV; //Converts distance to motor encoder counts
 	return maxdist;
 }
 

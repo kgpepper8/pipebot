@@ -31,8 +31,9 @@
 							(optional) float numarg (a numerical thing to log, may or may not be needed)
 	No returns. Writes a log message to the file returned by prepLog().
 	*/
-	void sendLog(int time, string mesg);
-	void sendLog(int time, string mesg, float &numarg);
+	void sendLog(TFileHandle &logfile, int &time, string &mesg);
+	void sendLog(TFileHandle &logfile, int &time, string &mesg, float &numarg);
+	void sendLog(TFileHandle logfile, int time, string mesg, int &numarg);
 
 
 //implemented in tasks.c
@@ -46,7 +47,7 @@
 				int time (an integer corresponding to the current time value)
 	Returns whether the robot was or was not moving after driving 'dist' in 'direction'.
 	*/
-	bool drive(float dist, bool direction, bool toStop, int speed, float &currentdist, int &time);
+	bool drive(float dist, bool direction, bool toStop, int speed, float &currentdist, int &time, TFileHandle &logfile);
 
 	/*
 	Author: Samuel Mailhot
@@ -61,20 +62,20 @@
 	No parameters.
 	Returns 1 if the procedure succeeded, and 0 if it failed.
 	*/
-	bool clean(float &currentdist, int &time);
+	bool clean(float &currentdist, int &time, TFileHandle &logfile);
 
 	/*
 	Author: Stefan Mathies
 	Parameters: float currentdist (the distance into the pipe the robot has travelled)
 	No returns - runs the escape procedure in accordance with the flowchart.
 	*/
-	void escape(float &currentdist, int &time);
+	void escape(float &currentdist, int &time, TFileHandle &logfile);
 
 	/*
 	Author: Stefan Mathies
 	No returns - runs the shutdown procedure in accordance with the flowchart.
 	*/
-	void shutdown(int &pastRotations, int &time);
+	void shutdown(int &pastRotations, int &time, TFileHandle &logfile);
 
 
 //implemented in checks.c
@@ -97,4 +98,4 @@
 			 5 if the robot should start cleaning operations
 			 10 if the robot should tension the wheels more
 	*/
-	int healthCheck(float &currentdist, float &endpoint, bool didDrive, float drivedist, int &time);
+	int healthCheck(float &currentdist, float &endpoint, bool didDrive, int &failures, float drivedist, int &time, TFileHandle logfile);

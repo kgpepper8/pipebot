@@ -1,7 +1,8 @@
 //tasks.c
 
-bool drive(float dist, bool direction, bool toStop, int speed, float &currentdist, int &time) {
-	bool isMoving = false;
+bool drive(float dist, bool direction, bool toStop, int speed, float &currentdist, int &time, TFileHandle &logfile) {
+	bool isMoving = true;
+	string mesg = "";
 
 	nMotorEncoder[FDRIVE] = 0;
 
@@ -13,22 +14,29 @@ bool drive(float dist, bool direction, bool toStop, int speed, float &currentdis
 		motor[RDRIVE] = speed;
 	}
 
-	while(nMotorEncoder[FDRIVE] < dist * CONV) {}
+	while((abs(nMotorEncoder[FDRIVE]) <= dist * CONV)) {}
 
-	float acc2 = SensorValue[ACCPORT];
+	float acc2 = abs(SensorValue[ACCPORT]);
+	sendLog(logfile, time, mesg, acc2);
 
-	if (acc2 > MINACCEL) { //arbitrairy acceleration val, change later
-		isMoving = true;
-	} else {
-		isMoving = false;
+	if (direction){
+		if (acc2 > MINACCEL) {
+			isMoving = true;
+			currentdist += dist;
+		}
+		else {
+			mesg = "Failed to drive.";
+			sendLog(logfile, time, mesg);
+			isMoving = false;
+		}
+	}
+	else {
+		currentdist -= dist;
 	}
 
 	if(toStop) {
 		motor[FDRIVE] = motor[RDRIVE] = 0;
 	}
-
-	string mesg = "Drove a distance of: ";
-	sendLog(time, mesg, dist);
 
 	return isMoving;
 }
@@ -49,53 +57,84 @@ void tensionWheels(int &pastRotations, bool spinDown) {
  	}
 }
 
-bool clean(float &currentdist, int &time) {
-	for(int i = 0; i < HITS; i++) {
+bool clean(float &currentdist, int &time, TFileHandle &logfile) {
+	string mesg = "";
+	int failures = 0;
 
-		drive(25, 0, 1, SPEEDLOW, currentdist, time);
+	for(int i = 0; i < HITS; i++) {
+		mesg = "Started cleaning";
+		sendLog(logfile, time, mesg);
+
+		drive(15, 0, 1, SPEEDLOW, currentdist, time, logfile);
+		mesg = "Reversing: ";
+		sendLog(logfile, time, mesg, i);
 
 		motor[BRUSH] = 100;
+		mesg = "Spinning up brush";
+		sendLog(logfile, time, mesg);
+
 		wait1Msec(1000);
 
 		while (SensorValue(TOUCHPORT) != 1){
-			drive(1, 1, 0, SPEEDRAM, currentdist, time);
+			mesg = "Ramming";
+			sendLog(logfile, time, mesg);
+			if(!drive(DRIVEDIST, 1, 0, SPEEDRAM, currentdist, time, logfile)){
+				failures++;
+				mesg = "Clean failures now at: ";
+				sendLog(logfile, time, mesg, failures);
+				if (failures >= MAXFAIL){
+					motor[BRUSH] = 0;
+					return false;
+				}
+			}
 		}
-		drive(5, 1, 1, SPEEDRAM, currentdist, time);
+		drive(5, 1, 1, SPEEDRAM, currentdist, time, logfile);
 		wait1Msec(1000);
 
 		if(!ultrasonicDist()){
+			motor[BRUSH] = 0;
 			return true;
     }
  	}
+
+ 	motor[BRUSH] = 0;
  	return false;
 }
 
-void escape(float &currentdist, int &time) {
+void escape(float &currentdist, int &time, TFileHandle &logfile) {
 	bool acceltrue = true;
+	int failures = 0;
+
+	drive(0, 0, 1, 0, currentdist, time, logfile);
 
 	while ((currentdist > DISTTOLEAVE) && acceltrue) {
-		if (!drive(DRIVEDIST, 0, 0, SPEEDHIGH, currentdist, time)) {
-			acceltrue = false;
+		if (!drive(DRIVEDIST, 0, 0, SPEEDHIGH, currentdist, time, logfile)) {
+			if (failures > MAXFAIL){
+				acceltrue = false;
+			}
+			else {
+				failures++;
+			}
 		}
 	}
 
 	if (!acceltrue) {
 		string message = "Mission Failure: Shutting Down.";
-		sendLog(time, message);
+		sendLog(logfile, time, message);
 	}
 	else {
 		string message = "Escaping.";
-		sendLog(time, message);
+		sendLog(logfile, time, message);
 
 		while(!getButtonPress(buttonAny)) {
-			drive(DRIVEDIST, 0, 0, SPEEDLOW, currentdist, time);
+			drive(DRIVEDIST, 0, 0, SPEEDLOW, currentdist, time, logfile);
 		}
 	}
-	drive(0, 0, 1, SPEEDLOW, currentdist, time);
+	drive(0, 0, 1, 0, currentdist, time, logfile);
 }
 
-void shutdown(int &pastRotations, int &time) {
-	//tensionWheels(pastRotations, 1);
+void shutdown(int &pastRotations, int &time, TFileHandle &logfile) {
+	tensionWheels(pastRotations, 1);
 	string mesg = "Shut down.";
-	sendLog(time, mesg);
+	sendLog(logfile, time, mesg);
 }

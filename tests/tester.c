@@ -1,8 +1,26 @@
 //tester.c
 
-#include "tests.c"
+//#include "tests.c"
+#include "../src/consts.h"
+#include "../src/funcs.h"
+#include "../src/startup.c"
+#include "../src/tasks.c"
+#include "../src/checks.c"
+#include "../src/logger.c"
 
 const int TEST = 100; //this can be set to anything between 1 and 11, to select which test to run
+void testThing(){
+	setSoundVolume(100);
+	playSoundFile("Robotexitnoise.mp3");
+
+	int pastRotations = 360*12*10000;
+	int time = 1;
+	float currentdist = 100;
+
+	tensionWheels(pastRotations, 1);
+
+	motor[LDSCREW] = 100;
+}
 
 task main(){
 	testThing();
