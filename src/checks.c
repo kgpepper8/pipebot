@@ -4,7 +4,8 @@ bool ultrasonicDist(){
 	return (SensorValue[USPORT]-USOFFSET) < BLOCKDIST;
 }
 
-int healthCheck(float &currentdist, float &endpoint, bool didDrive, int &failures, float drivedist, int &time, TFileHandle &logfile){
+int healthCheck(float &currentdist, float &endpoint, bool didDrive, int &failures,
+				float drivedist, int &time, TFileHandle &logfile){
 	int state = 0;
 	string mesg = "";
 

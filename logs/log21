@@ -1,0 +1,41 @@
+0	Robot initialized. 	320.000000
+1	Failed to drive.
+1	HC failures now at:	1
+2	Failed to drive.
+2	HC failures now at:	2
+3	Business as usual
+4	Failed to drive.
+4	HC failures now at:	3
+5	Business as usual
+6	Business as usual
+7	Business as usual
+8	Failed to drive.
+8	HC failures now at:	4
+9	Business as usual
+10	Ultrasonic triggere
+10	started cleaning
+10	reversibing hea: 	0
+10	SPINNNNNNN
+10	Ramming
+10	Failed to drive.
+10	Clean failures now 	1
+10	Ramming
+10	Failed to drive.
+10	Clean failures now 	2
+10	Ramming
+10	Failed to drive.
+10	Clean failures now 	3
+10	Ramming
+10	Failed to drive.
+10	Clean failures now 	4
+10	Ramming
+10	Failed to drive.
+10	Clean failures now 	5
+10	Ramming
+10	Failed to drive.
+10	Clean failures now 	6
+10	Ramming
+10	Failed to drive.
+10	Clean failures now 	7
+10	Failed cleaning.
+10	Health check failur

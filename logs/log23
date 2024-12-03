@@ -1,0 +1,30 @@
+0	Robot initialized. 	80.000000
+1	Failed to drive.
+1	HC failures now at:	1
+2	Failed to drive.
+2	HC failures now at:	2
+3	Business as usual
+4	Business as usual
+5	Business as usual
+6	Business as usual
+7	Business as usual
+8	Failed to drive.
+8	HC failures now at:	3
+9	Business as usual
+10	Business as usual
+11	Business as usual
+12	Business as usual
+13	Business as usual
+14	Business as usual
+15	Business as usual
+16	Failed to drive.
+16	HC failures now at:	4
+17	Business as usual
+18	Business as usual
+19	Failed to drive.
+19	HC failures now at:	5
+20	Business as usual
+21	Reached endpoint.
+21	Health check failur
+21	Mission Failure: Sh
+21	Shut down.

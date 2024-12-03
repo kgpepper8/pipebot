@@ -1,6 +1,7 @@
 //tasks.c
 
-bool drive(float dist, bool direction, bool toStop, int speed, float &currentdist, int &time, TFileHandle &logfile) {
+bool drive(float dist, bool direction, bool toStop, int speed,
+		   float &currentdist, int &time, TFileHandle &logfile) {
 	bool isMoving = true;
 	string mesg = "";
 
@@ -48,12 +49,12 @@ void tensionWheels(int &pastRotations, bool spinDown) {
 		while(nMotorEncoder[LDSCREW] < LDSCREWROTS){}
 		motor[LDSCREW] = 0;
 		pastRotations += nMotorEncoder[LDSCREW];
-  }
-  else {
-  	nMotorEncoder[LDSCREW] = 0;
-  	motor[LDSCREW] = 100;
-    while(abs(nMotorEncoder[LDSCREW]) < pastRotations){}
-    motor[LDSCREW] = 0;
+  	}
+  	else {
+  		nMotorEncoder[LDSCREW] = 0;
+  		motor[LDSCREW] = 100;
+    	while(abs(nMotorEncoder[LDSCREW]) < pastRotations){}
+    	motor[LDSCREW] = 0;
  	}
 }
 

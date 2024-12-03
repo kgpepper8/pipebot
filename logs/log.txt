@@ -1,0 +1,5 @@
+0	Robot initialized. 	100.000000
+1	Drove a distance of	5.000000
+1	Giving up because w
+1	Health check failur
+1	Escaping.
